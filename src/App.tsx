@@ -156,26 +156,6 @@ function App() {
     setLeftJson(rightJson)
   }
 
-  const downloadJson = (json: string, filename: string) => {
-    const blob = new Blob([json], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${filename}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
-
-  const handleDownloadLeft = () => {
-    downloadJson(leftJson, leftTitle.replace(/\s+/g, '_'))
-  }
-
-  const handleDownloadRight = () => {
-    downloadJson(rightJson, rightTitle.replace(/\s+/g, '_'))
-  }
-
   const showErrorLocation = (editorId: 'left' | 'right', line: number, column: number) => {
     const textarea = editorId === 'left'
       ? document.getElementById('left-editor') as HTMLTextAreaElement
@@ -487,13 +467,6 @@ function App() {
               />
               <div className="flex gap-2">
                 <button 
-                  onClick={handleDownloadLeft}
-                  className="px-2 py-1 text-xs bg-white border border-gray-400 rounded hover:bg-gray-50 flex items-center gap-1"
-                  title="Download JSON"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </button>
-                <button 
                   onClick={handleFormatLeft}
                   className="px-2 py-1 text-xs bg-white border border-gray-400 rounded hover:bg-gray-50"
                 >
@@ -611,13 +584,6 @@ function App() {
                 className="font-semibold text-gray-700 text-sm bg-transparent border-none outline-none focus:bg-white focus:px-1 rounded"
               />
               <div className="flex gap-2">
-                <button 
-                  onClick={handleDownloadRight}
-                  className="px-2 py-1 text-xs bg-white border border-gray-400 rounded hover:bg-gray-50 flex items-center gap-1"
-                  title="Download JSON"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </button>
                 <button 
                   onClick={handleFormatRight}
                   className="px-2 py-1 text-xs bg-white border border-gray-400 rounded hover:bg-gray-50"
